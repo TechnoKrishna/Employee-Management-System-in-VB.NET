@@ -1,0 +1,235 @@
+// FORM 1 CODE
+
+Public Class Form1
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+        Timer1.Stop()
+        Me.Hide()
+        Form2.Show()
+    End Sub
+End Class
+
+// FORM 2 CODE
+
+Public Class Form2
+    ' BUTTON LOGIN
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Dim user, pass As String
+        user = TextBox1.Text
+        pass = TextBox2.Text
+        TextBox1.Focus()
+        If (user = "admin" And pass = "admin") Then
+            MessageBox.Show("!! ACCESS !!", "", MessageBoxButtons.OK)
+            TextBox1.Text = ""
+            TextBox2.Text = ""
+            Form3.Show()
+            Me.Hide()
+        Else
+            MessageBox.Show("!! ACCESS DENIED !!", "", MessageBoxButtons.OK)
+            TextBox1.Text = ""
+            TextBox2.Text = ""
+        End If
+    End Sub
+    ' BUTTON QUIT
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        Dim result As DialogResult = MessageBox.Show("!! DO YOU WANT TO OUIT !!", "QUIT", MessageBoxButtons.YesNo)
+        If result = DialogResult.No Then
+
+        ElseIf result = DialogResult.Yes Then
+            'Me.Close()
+            Form1.Close()
+        End If
+    End Sub
+End Class
+
+// FORM 3 CODE
+
+Public Class Form3
+    ' SUB LOGOUT
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Dim result As DialogResult = MessageBox.Show("!! DO YOU WANT TO LOGOUT !!", "LOGOUT", MessageBoxButtons.YesNo)
+        If result = DialogResult.No Then
+
+        ElseIf result = DialogResult.Yes Then
+            Me.Hide()
+            Form2.Show()
+        End If
+    End Sub
+    ' SUB QUIT
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        Dim result As DialogResult = MessageBox.Show("!! DO YOU WANT TO OUIT !!", "QUIT", MessageBoxButtons.YesNo)
+        If result = DialogResult.No Then
+
+        ElseIf result = DialogResult.Yes Then
+            'Me.Close()
+            Form1.Close()
+        End If
+    End Sub
+    ' SUB EMPLOYEE
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        Me.Hide()
+        Form4.Show()
+    End Sub
+    ' SUB TABLE
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+        Me.Hide()
+        Form5.Show()
+    End Sub
+    ' SUB ABOUT US
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+        Me.Hide()
+        Form6.Show()
+    End Sub
+End Class
+
+// FORM 4 CODE
+
+Public Class Form4
+    ' SUB LOGOUT
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Dim result As DialogResult = MessageBox.Show("!! DO YOU WANT TO BACK !!", "BACK", MessageBoxButtons.YesNo)
+        If result = DialogResult.No Then
+
+        ElseIf result = DialogResult.Yes Then
+            Me.Hide()
+            Form3.Show()
+        End If
+    End Sub
+    ' SUB QUIT
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        Dim result As DialogResult = MessageBox.Show("!! DO YOU WANT TO OUIT !!", "QUIT", MessageBoxButtons.YesNo)
+        If result = DialogResult.No Then
+
+        ElseIf result = DialogResult.Yes Then
+            'Me.Close()
+            Form1.Close()
+        End If
+    End Sub
+
+    Private Sub Form4_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'TODO: This line of code loads data into the 'EMPDATABASEDataSet.EMPTABLE' table. You can move, or remove it, as needed.
+        Me.EMPTABLETableAdapter.Fill(Me.EMPDATABASEDataSet.EMPTABLE)
+    End Sub
+    ' ADD NEW
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+        EMPTABLEBindingSource.AddNew()
+    End Sub
+    ' SAVE & UPDATE
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+
+        On Error GoTo saveerror
+
+        EMPTABLEBindingSource.EndEdit()
+        EMPTABLETableAdapter.Update(EMPDATABASEDataSet.EMPTABLE)
+
+        Me.EMPTABLETableAdapter.Fill(Me.EMPDATABASEDataSet.EMPTABLE)
+
+saveerror:
+
+    End Sub
+    ' DELETE
+    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
+        EMPTABLEBindingSource.RemoveCurrent()
+    End Sub
+    ' PREVIOUS
+    Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
+        EMPTABLEBindingSource.MovePrevious()
+    End Sub
+    ' NEXT
+    Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
+        EMPTABLEBindingSource.MoveNext()
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        Dim Mypic As String = System.Environment.GetFolderPath(Environment.SpecialFolder.MyPictures)
+        With OpenFileDialog1
+            .Filter = "jpg, jpeg Image|*.jpg, jpeg|PNG Image|*.png|BMP Image|*.bmp|" & "All Files (*.*)|*.*"
+            .Title = "CHOOSE THE PICTURE....."
+            .FilterIndex = 1
+            .Multiselect = False
+            .ValidateNames = True
+            .InitialDirectory = Mypic
+            .RestoreDirectory = True
+
+            If (.ShowDialog = DialogResult.OK) Then
+                PictureBox2.Image = Image.FromFile(OpenFileDialog1.FileName)
+            Else
+                Return
+
+            End If
+        End With
+    End Sub
+End Class
+
+// FORM 5 CODE
+
+Public Class Form5
+    ' SUB BACK
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Dim result As DialogResult = MessageBox.Show("!! DO YOU WANT TO BACK !!", "BACK", MessageBoxButtons.YesNo)
+        If result = DialogResult.No Then
+
+        ElseIf result = DialogResult.Yes Then
+            Me.Hide()
+            Form3.Show()
+        End If
+    End Sub
+    ' SUB QUIT
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        Dim result As DialogResult = MessageBox.Show("!! DO YOU WANT TO OUIT !!", "QUIT", MessageBoxButtons.YesNo)
+        If result = DialogResult.No Then
+
+        ElseIf result = DialogResult.Yes Then
+            'Me.Close()
+            Form1.Close()
+        End If
+    End Sub
+    ' TABLE
+    Private Sub Form5_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'TODO: This line of code loads data into the 'EMPDATABASEDataSet.EMPTABLE' table. You can move, or remove it, as needed.
+        Me.EMPTABLETableAdapter.Fill(Me.EMPDATABASEDataSet.EMPTABLE)
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        Me.DataGridView1.DataSource = Nothing
+        Me.EMPTABLETableAdapter.Fill(Me.EMPDATABASEDataSet.EMPTABLE)
+        Me.DataGridView1.DataSource = Me.EMPTABLEBindingSource
+        Me.DataGridView1.Refresh()
+    End Sub
+End Class
+
+// FORM 6 CODE
+
+Public Class Form5
+    ' SUB BACK
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Dim result As DialogResult = MessageBox.Show("!! DO YOU WANT TO BACK !!", "BACK", MessageBoxButtons.YesNo)
+        If result = DialogResult.No Then
+
+        ElseIf result = DialogResult.Yes Then
+            Me.Hide()
+            Form3.Show()
+        End If
+    End Sub
+    ' SUB QUIT
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        Dim result As DialogResult = MessageBox.Show("!! DO YOU WANT TO OUIT !!", "QUIT", MessageBoxButtons.YesNo)
+        If result = DialogResult.No Then
+
+        ElseIf result = DialogResult.Yes Then
+            'Me.Close()
+            Form1.Close()
+        End If
+    End Sub
+    ' TABLE
+    Private Sub Form5_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'TODO: This line of code loads data into the 'EMPDATABASEDataSet.EMPTABLE' table. You can move, or remove it, as needed.
+        Me.EMPTABLETableAdapter.Fill(Me.EMPDATABASEDataSet.EMPTABLE)
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        Me.DataGridView1.DataSource = Nothing
+        Me.EMPTABLETableAdapter.Fill(Me.EMPDATABASEDataSet.EMPTABLE)
+        Me.DataGridView1.DataSource = Me.EMPTABLEBindingSource
+        Me.DataGridView1.Refresh()
+    End Sub
+End Class
